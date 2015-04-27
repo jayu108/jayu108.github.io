@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="kr">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<style>
+#box {
+	/*position: absolute;*/
+	width: 500px;
+	height: 25px;
+	background: skyblue;
+}
+#boxBody {
+	position: absolute;
+	width: 498px;
+	height: 400px;
+	border: 1px solid skyblue;
+	display: none;
+}
+</style>
+<script>
+function init() {
+	box = document.getElementById("box");
+	boxBody.style.marginLeft = box.style.marginLeft;
+	box.onmousedown = function() {
+		//console.log(event);
+		//console.log(event.clientX);
+		//console.log(event.clientY);
+		//console.log(this.offsetLeft);
+		//console.log(this.offsetTop);
+		box.gapX = event.clientX - boxBody.offsetLeft;
+		box.gapY = event.clientY - boxBody.offsetTop;
+		console.log(box.gapX);
+		console.log(box.gapY);
+		window.onmousemove = function() {
+			//console.log(event.clientX);
+			//console.log(event.clientY);
+			var boxX = event.clientX - box.gapX;
+			var boxY = event.clientY - box.gapY;
+			//box.style.marginLeft = boxX + 'px';
+			//box.style.marginTop = boxY + 'px';
+
+			boxBody.style.marginLeft = boxX + 'px';
+			boxBody.style.marginTop = boxY + 'px';
+		};
+	};
+	window.onmouseup = function() {
+		this.onmousemove = null;
+	};
+
+	window.onclick = function() {
+		boxBody.style.display = "block";
+	};
+}
+window.onload = init;
+</script>
+</head>
+<body>
+
+
+<div id="boxBody">
+	<div id="box"></div>
+</div>
+
+</body>
+</html>
